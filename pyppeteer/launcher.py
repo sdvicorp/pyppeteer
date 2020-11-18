@@ -348,11 +348,11 @@ async def connect(options: dict = None, **kwargs: Any) -> Browser:
         browserWSEndpoint = get_ws_endpoint(browserURL)
     connectionDelay = options.get('slowMo', 0)
     connection = Connection(browserWSEndpoint, options.get('loop', asyncio.get_event_loop()), connectionDelay)
-    browserContextIds = (await connection.send('Target.getBrowserContexts')).get('browserContextIds', [])
+    #browserContextIds = (await connection.send('Target.getBrowserContexts')).get('browserContextIds', [])
+    browserContextIds = []
     ignoreHTTPSErrors = bool(options.get('ignoreHTTPSErrors', False))
     defaultViewport = options.get('defaultViewport', {'width': 800, 'height': 600})
-    return await Browser.create(connection, browserContextIds, ignoreHTTPSErrors, defaultViewport, None,
-                                lambda: connection.send('Browser.close'))
+    return await Browser.create(connection, browserContextIds, ignoreHTTPSErrors, defaultViewport, None)
 
 
 def executablePath() -> str:
