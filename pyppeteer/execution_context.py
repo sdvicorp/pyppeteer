@@ -45,13 +45,13 @@ class ExecutionContext(object):
         return self._frame
 
     async def evaluate(self, pageFunction: str, *args: Any,
-                       force_expr: bool = False) -> Any:
+                       force_expr: bool = False, source_url: str = None) -> Any:
         """Execute ``pageFunction`` on this context.
 
         Details see :meth:`pyppeteer.page.Page.evaluate`.
         """
         handle = await self.evaluateHandle(
-            pageFunction, *args, force_expr=force_expr)
+            pageFunction, *args, force_expr=force_expr, source_url=source_url)
         try:
             result = await handle.jsonValue()
         except NetworkError as e:
@@ -64,12 +64,12 @@ class ExecutionContext(object):
         return result
 
     async def evaluateHandle(self, pageFunction: str, *args: Any,  # noqa: C901
-                             force_expr: bool = False) -> 'JSHandle':
+                             force_expr: bool = False, source_url: str = EVALUATION_SCRIPT_URL) -> 'JSHandle':
         """Execute ``pageFunction`` on this context.
 
         Details see :meth:`pyppeteer.page.Page.evaluateHandle`.
         """
-        suffix = f'//# sourceURL={EVALUATION_SCRIPT_URL}'
+        suffix = f'//# sourceURL={source_url}'
 
         if force_expr or (not args and not helper.is_jsfunc(pageFunction)):
             try:

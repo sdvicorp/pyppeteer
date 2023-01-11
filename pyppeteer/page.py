@@ -1167,7 +1167,8 @@ function addPageBinding(bindingName) {
         return self._viewport
 
     async def evaluate(self, pageFunction: str, *args: Any,
-                       force_expr: bool = False) -> Any:
+                       force_expr: bool = False, source_url: str = None
+                       ) -> Any:
         """Execute js-function or js-expression on browser and get result.
 
         :arg str pageFunction: String of js-function/expression to be executed
@@ -1175,13 +1176,17 @@ function addPageBinding(bindingName) {
         :arg bool force_expr: If True, evaluate `pageFunction` as expression.
                               If False (default), try to automatically detect
                               function or expression.
+        :arg str source_url: The name of the source file that the
+                             js-function/expression will be added to in the
+                             browser.
 
         note: ``force_expr`` option is a keyword only argument.
         """
         frame = self.mainFrame
         if frame is None:
             raise PageError('No main frame.')
-        return await frame.evaluate(pageFunction, *args, force_expr=force_expr)
+        return await frame.evaluate(pageFunction, *args, force_expr=force_expr,
+                                    source_url=source_url)
 
     async def evaluateOnNewDocument(self, pageFunction: str, *args: str
                                     ) -> None:
