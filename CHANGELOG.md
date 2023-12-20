@@ -1,7 +1,51 @@
 History
 =======
 
-## Version 0.0.26 (next version)
+## Version ?.?.? (next version, pup2.1.1 overhaul)
+
+* [populate me]
+
+## Version 1.0.2
+
+* Fix circular import as result of 1.0.1 (#344)
+
+## Version 1.0.1
+
+* don't configure logging ourselves (#343)
+* make logging better for chromium downloader
+
+## Version 1.0.0
+
+* hotfix: websockets 10 for python 3.10 (#321, #327)
+  * removes support for python 3.6./
+* remove `Page.craete`
+
+## Version 0.2.6
+
+* Change build backend to poetry-core (allows for faster PEP517 package building) #262 @fabaff
+* Chromium download fixes (file not found) #245 @mborsetti
+* Do not try to set an exception on finished futures #216 @polyfloyd
+* Add HTTPException to caught exceptions in launch #293 @raymondguo-db
+* Fix encoding error #226 @aleksei140888
+* support websockets 9.0 #252 @mborsetti
+* Fix tqdm exception when NO_PROGRESS_BAR is True #224 @mborsetti
+* fix(browser): Clean up coroutine Browser._targetCreated() #271 @H--o-I
+
+## Version 0.2.5
+
+* Match package version and \_\_version__ (🤦‍♂️)
+* Use `importlib_metadata` so this isn't a problem in the future
+
+## Version 0.2.4
+
+* Update `pyee` dependency breaking build failures on NixOS + Fedora packaging systems (#207)
+
+## Version 0.2.3
+
+* Hotfix: random freezes from sending stdout to PIPE instead of DEVNULL
+* Fix `tests` package being installed for no reason
+
+## Version 0.0.26
 
 * Add `$PYPPETEER_NO_PROGRESS_BAR` environment variable
 * `pyppeteer.defaultArgs` now accepts that help infer chromium command-line flags.
