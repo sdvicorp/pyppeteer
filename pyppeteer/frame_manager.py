@@ -297,7 +297,8 @@ class Frame(object):
         return await context.evaluateHandle(pageFunction, *args)
 
     async def evaluate(self, pageFunction: str, *args: Any,
-                       force_expr: bool = False) -> Any:
+                       force_expr: bool = False, source_url: str = None
+                       ) -> Any:
         """Evaluate pageFunction on this frame.
 
         Details see :meth:`pyppeteer.page.Page.evaluate`.
@@ -306,7 +307,7 @@ class Frame(object):
         if context is None:
             raise ElementHandleError('ExecutionContext is None.')
         return await context.evaluate(
-            pageFunction, *args, force_expr=force_expr)
+            pageFunction, *args, force_expr=force_expr, source_url=source_url)
 
     async def querySelector(self, selector: str) -> Optional[ElementHandle]:
         """Get element which matches `selector` string.
